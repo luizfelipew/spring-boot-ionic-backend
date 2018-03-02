@@ -1,8 +1,12 @@
 package com.luizfelipe.cursomc;
 
 import com.luizfelipe.cursomc.domain.Categoria;
+import com.luizfelipe.cursomc.domain.Cidade;
+import com.luizfelipe.cursomc.domain.Estado;
 import com.luizfelipe.cursomc.domain.Produto;
 import com.luizfelipe.cursomc.repositories.CategoriaRepository;
+import com.luizfelipe.cursomc.repositories.CidadeRepository;
+import com.luizfelipe.cursomc.repositories.EstadoRepository;
 import com.luizfelipe.cursomc.repositories.ProdutoRepository;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EmptyStackException;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner{
@@ -21,6 +26,12 @@ public class CursomcApplication implements CommandLineRunner{
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -63,5 +74,33 @@ public class CursomcApplication implements CommandLineRunner{
 
 		categoriaRepository.save(Arrays.asList(categoria1, categoria2));
 		produtoRepository.save(Arrays.asList(produto1, produto2, produto3));
+
+
+		// estado com cidades
+		Estado estado1 = new Estado();
+		estado1.setNome("Minas Gerais");
+
+		Estado estado2 = new Estado();
+		estado2.setNome("São Paulo");
+
+		Cidade cidade1 = new Cidade();
+		cidade1.setNome("Uberlândia");
+		cidade1.setEstado(estado1);
+
+		Cidade cidade2 = new Cidade();
+		cidade2.setNome("São Paulo");
+		cidade2.setEstado(estado2);
+
+		Cidade cidade3 = new Cidade();
+		cidade3.setNome("Campinas");
+		cidade3.setEstado(estado2);
+
+		estado1.getCidades().addAll(Arrays.asList(cidade1));
+		estado2.getCidades().addAll(Arrays.asList(cidade2, cidade3));
+
+
+		estadoRepository.save(Arrays.asList(estado1, estado2));
+		cidadeRepository.save(Arrays.asList(cidade1, cidade2, cidade3));
+
 	}
 }
