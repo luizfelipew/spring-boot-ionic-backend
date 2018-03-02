@@ -1,19 +1,15 @@
 package com.luizfelipe.cursomc;
 
-import com.luizfelipe.cursomc.domain.Categoria;
-import com.luizfelipe.cursomc.domain.Cidade;
-import com.luizfelipe.cursomc.domain.Estado;
-import com.luizfelipe.cursomc.domain.Produto;
-import com.luizfelipe.cursomc.repositories.CategoriaRepository;
-import com.luizfelipe.cursomc.repositories.CidadeRepository;
-import com.luizfelipe.cursomc.repositories.EstadoRepository;
-import com.luizfelipe.cursomc.repositories.ProdutoRepository;
+import com.luizfelipe.cursomc.domain.*;
+import com.luizfelipe.cursomc.domain.enums.TipoCliente;
+import com.luizfelipe.cursomc.repositories.*;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EmptyStackException;
@@ -32,6 +28,14 @@ public class CursomcApplication implements CommandLineRunner{
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -101,6 +105,39 @@ public class CursomcApplication implements CommandLineRunner{
 
 		estadoRepository.save(Arrays.asList(estado1, estado2));
 		cidadeRepository.save(Arrays.asList(cidade1, cidade2, cidade3));
+
+
+		Cliente cliente1 = new Cliente();
+		cliente1.setNome("Maria Silva");
+		cliente1.setEmail("maria@gmail.com");
+		cliente1.setCpfOuCnpj("36378912377");
+		cliente1.setTipo(TipoCliente.PESSOAFISICA.getCod());
+
+		cliente1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
+
+		Endereco endereco1 = new Endereco();
+		endereco1.setLogradouro("Rua Flores");
+		endereco1.setNumero("300");
+		endereco1.setComplemento("Apto 303");
+		endereco1.setBairro("Jardim");
+		endereco1.setCep("38220834");
+		endereco1.setCliente(cliente1);
+		endereco1.setCidade(cidade1);
+
+		Endereco endereco2 = new Endereco();
+		endereco2.setLogradouro("Avenida Matos");
+		endereco2.setNumero("105");
+		endereco2.setComplemento("Sala 80");
+		endereco2.setBairro("Centro");
+		endereco2.setCep("38777012");
+		endereco2.setCliente(cliente1);
+		endereco2.setCidade(cidade2);
+
+
+		cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+
+		clienteRepository.save(Arrays.asList(cliente1));
+		enderecoRepository.save(Arrays.asList(endereco1, endereco2));
 
 	}
 }
