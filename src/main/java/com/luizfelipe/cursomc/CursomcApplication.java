@@ -1,6 +1,7 @@
 package com.luizfelipe.cursomc;
 
 import com.luizfelipe.cursomc.domain.*;
+import com.luizfelipe.cursomc.domain.enums.EstadoPagamento;
 import com.luizfelipe.cursomc.domain.enums.TipoCliente;
 import com.luizfelipe.cursomc.repositories.*;
 import org.hibernate.annotations.NaturalId;
@@ -10,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EmptyStackException;
@@ -34,6 +36,12 @@ public class CursomcApplication implements CommandLineRunner{
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private PedidoRepository pedidoRepository;
+
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 
 
@@ -138,6 +146,31 @@ public class CursomcApplication implements CommandLineRunner{
 
 		clienteRepository.save(Arrays.asList(cliente1));
 		enderecoRepository.save(Arrays.asList(endereco1, endereco2));
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+		Pedido pedido1 = new Pedido();
+		pedido1.setInstate(simpleDateFormat.parse("30/09/2017 10:32"));
+		pedido1.setCliente(cliente1);
+		pedido1.setEnderecoDeEntrega(endereco1);
+
+		Pedido pedido2 = new Pedido();
+		pedido2.setInstate(simpleDateFormat.parse("10/10/2017 19:35"));
+		pedido2.setCliente(cliente1);
+		pedido2.setEnderecoDeEntrega(endereco2);
+
+		Pagamento pagamento1 = new PagamentoComCartao(EstadoPagamento.QUITADO,pedido1, 6);
+		pedido1.setPagamento(pagamento1);
+
+
+		Pagamento pagamento2 = new PagamentoComBoleto(EstadoPagamento.PENDENTE,pedido2, simpleDateFormat.parse("20/10/2017 00:00"), null);
+		pedido2.setPagamento(pagamento2);
+
+		cliente1.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
+
+
+		pedidoRepository.save(Arrays.asList(pedido1, pedido2));
+		pagamentoRepository.save(Arrays.asList(pagamento1, pagamento2));
 
 	}
 }
