@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
-@Data
+//@Data
 @Embeddable
 public class ItemPedidoPK implements Serializable {
 
@@ -21,7 +21,7 @@ public class ItemPedidoPK implements Serializable {
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
-    /*public Pedido getPedido() {
+    public Pedido getPedido() {
         return pedido;
     }
 
@@ -35,5 +35,5 @@ public class ItemPedidoPK implements Serializable {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
-    }*/
+    }
 }
