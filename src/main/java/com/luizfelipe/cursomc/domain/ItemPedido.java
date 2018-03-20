@@ -1,7 +1,6 @@
 package com.luizfelipe.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
