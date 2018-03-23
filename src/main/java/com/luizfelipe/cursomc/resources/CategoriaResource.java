@@ -17,17 +17,24 @@ public class CategoriaResource {
     private CategoriaService categoriaService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<?> Find(@PathVariable Integer id) {
+    public ResponseEntity<Categoria> Find(@PathVariable Integer id) {
 
-        Categoria categoria = categoriaService.buscar(id);
+        Categoria categoria = categoriaService.find(id);
 
         return ResponseEntity.ok().body(categoria);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Void> insert(@RequestBody Categoria categoria){
         categoria = categoriaService.insert(categoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@RequestBody Categoria categoria, @PathVariable Integer id){
+        categoria.setId(id);
+        categoria = categoriaService.update(categoria);
+        return ResponseEntity.noContent().build();
     }
 }
