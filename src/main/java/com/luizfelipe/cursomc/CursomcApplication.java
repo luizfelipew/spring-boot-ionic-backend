@@ -4,17 +4,13 @@ import com.luizfelipe.cursomc.domain.*;
 import com.luizfelipe.cursomc.domain.enums.EstadoPagamento;
 import com.luizfelipe.cursomc.domain.enums.TipoCliente;
 import com.luizfelipe.cursomc.repositories.*;
-import org.hibernate.annotations.NaturalId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EmptyStackException;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner{
@@ -53,11 +49,27 @@ public class CursomcApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... strings) throws Exception {
+
 		Categoria categoria1 = new Categoria();
 		categoria1.setNome("Informática");
 
 		Categoria categoria2 = new Categoria();
 		categoria2.setNome("Escritório");
+
+		Categoria categoria3 = new Categoria();
+		categoria3.setNome("Cama mesa e banho");
+
+		Categoria categoria4 = new Categoria();
+        categoria4.setNome("Eletrônicos");
+
+		Categoria categoria5 = new Categoria();
+        categoria5.setNome("Jardinagem");
+
+		Categoria categoria6 = new Categoria();
+        categoria6.setNome("Decoracao");
+
+		Categoria categoria7 = new Categoria();
+        categoria7.setNome("Perfumaria");
 
 		//Categoria categoria1 = new Categoria(null, "Informática");
 		//Categoria categoria2 = new Categoria(null, "Ecritório");
@@ -86,7 +98,7 @@ public class CursomcApplication implements CommandLineRunner{
 		produto3.getCategorias().addAll(Arrays.asList(categoria1));
 
 
-		categoriaRepository.save(Arrays.asList(categoria1, categoria2));
+		categoriaRepository.save(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
 		produtoRepository.save(Arrays.asList(produto1, produto2, produto3));
 
 
