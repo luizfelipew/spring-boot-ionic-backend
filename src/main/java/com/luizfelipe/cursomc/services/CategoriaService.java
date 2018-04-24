@@ -1,6 +1,7 @@
 package com.luizfelipe.cursomc.services;
 
 import com.luizfelipe.cursomc.domain.Categoria;
+import com.luizfelipe.cursomc.domain.Cliente;
 import com.luizfelipe.cursomc.dto.CategoriaDTO;
 import com.luizfelipe.cursomc.repositories.CategoriaRepository;
 import com.luizfelipe.cursomc.services.exceptions.DataIntregityException;
@@ -35,9 +36,11 @@ public class CategoriaService {
     }
 
     public Categoria update(Categoria categoria){
-        find(categoria.getId());
-        return categoriaRepository.save(categoria);
+        Categoria newCategoria = find(categoria.getId());
+        updateData(newCategoria, categoria);
+        return categoriaRepository.save(newCategoria);
     }
+
 
     public void delete(Integer id) {
         find(id);
@@ -61,5 +64,10 @@ public class CategoriaService {
 
         return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 
+    }
+
+
+    private void updateData(Categoria newCategoria, Categoria categoria) {
+        newCategoria.setNome(categoria.getNome());
     }
 }
