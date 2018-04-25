@@ -2,14 +2,13 @@ package com.luizfelipe.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luizfelipe.cursomc.domain.enums.EstadoPagamento;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 //@Data
 //@Builder
-@ToString
+//@ToString
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 //@NoArgsConstructor

@@ -7,13 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@Builder
-@ToString
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-//@EqualsAndHashCode não precisa por causa do @Data
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,5 +26,47 @@ public class Categoria implements Serializable {
     public Categoria(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
+    }
+
+    public Categoria() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Categoria)) return false;
+
+        Categoria categoria = (Categoria) o;
+
+        return getId().equals(categoria.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
     }
 }

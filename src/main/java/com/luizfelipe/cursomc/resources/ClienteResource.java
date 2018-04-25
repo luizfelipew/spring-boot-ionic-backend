@@ -1,8 +1,6 @@
 package com.luizfelipe.cursomc.resources;
 
-import com.luizfelipe.cursomc.domain.Categoria;
 import com.luizfelipe.cursomc.domain.Cliente;
-import com.luizfelipe.cursomc.dto.CategoriaDTO;
 import com.luizfelipe.cursomc.dto.ClienteDTO;
 import com.luizfelipe.cursomc.dto.ClienteNewDTO;
 import com.luizfelipe.cursomc.services.ClienteService;

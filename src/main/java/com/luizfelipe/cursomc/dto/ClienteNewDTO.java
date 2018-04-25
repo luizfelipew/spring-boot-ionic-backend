@@ -2,6 +2,7 @@ package com.luizfelipe.cursomc.dto;
 
 import java.io.Serializable;
 
+
 public class ClienteNewDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,6 +27,8 @@ public class ClienteNewDTO implements Serializable {
 
     public ClienteNewDTO() {
     }
+
+
 
     public String getNome() {
         return nome;
@@ -130,4 +133,6 @@ public class ClienteNewDTO implements Serializable {
     public void setCidadeId(Integer cidadeId) {
         this.cidadeId = cidadeId;
     }
+
+
 }

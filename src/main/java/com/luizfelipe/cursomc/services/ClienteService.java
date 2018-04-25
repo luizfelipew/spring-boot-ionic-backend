@@ -33,6 +33,7 @@ public class ClienteService {
     @Autowired
     private CidadeRepository cidadeRepository;
 
+
     public Cliente find(Integer id){
         Cliente cliente = clienteRepository.findOne(id);
         if (cliente == null){
@@ -79,13 +80,14 @@ public class ClienteService {
     }
 
     public Cliente fromDTO(ClienteDTO clienteDTO){
-        return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null, null,null,null);
+        return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null);
     }
 
     public Cliente fromDTO(ClienteNewDTO clienteNewDTO){
-        Cliente cliente = new Cliente(null, clienteNewDTO.getNome(), clienteNewDTO.getEmail(), clienteNewDTO.getCpfOuCnpj(), TipoCliente.toEnum(clienteNewDTO.getTipo()).getCod(), null, null, null);
+        Cliente cliente = new Cliente(null, clienteNewDTO.getNome(), clienteNewDTO.getEmail(), clienteNewDTO.getCpfOuCnpj(), TipoCliente.toEnum(clienteNewDTO.getTipo()));
+        //Cidade cidade = new Cidade(clienteNewDTO.getCidadeId());
         Cidade cidade = cidadeRepository.findOne(clienteNewDTO.getCidadeId());
-        Endereco endereco = new Endereco(null, clienteNewDTO.getLogradouro(), clienteNewDTO.getNumero(), clienteNewDTO.getComplemento(), clienteNewDTO.getBairro(), clienteNewDTO.getCep(), cliente, cidade);
+        Endereco endereco = new Endereco(clienteNewDTO.getLogradouro(), clienteNewDTO.getNumero(), clienteNewDTO.getComplemento(), clienteNewDTO.getBairro(), clienteNewDTO.getCep(), cliente, cidade);
         cliente.getEnderecos().add(endereco);
         cliente.getTelefones().add(clienteNewDTO.getTelefone1());
         if (clienteNewDTO.getTelefone2() != null){

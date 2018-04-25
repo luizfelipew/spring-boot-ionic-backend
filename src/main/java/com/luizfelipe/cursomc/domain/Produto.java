@@ -10,12 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
-@Builder
-@ToString
+//@Data
 @Entity
-@NoArgsConstructor(force = true)
-@AllArgsConstructor
 public class Produto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,6 +34,9 @@ public class Produto implements Serializable {
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
 
+    public Produto() {
+    }
+
     @JsonIgnore
     public List<Pedido> getPedidos(){
         List<Pedido> lista =  new ArrayList<>();
@@ -45,5 +44,66 @@ public class Produto implements Serializable {
             lista.add(x.getPedido());
         }
         return lista;
+    }
+
+    public Produto(Integer id, String nome, Double preco) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Produto)) return false;
+
+        Produto produto = (Produto) o;
+
+        return getId().equals(produto.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
     }
 }
