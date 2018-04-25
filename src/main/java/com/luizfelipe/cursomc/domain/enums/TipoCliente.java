@@ -4,7 +4,6 @@ package com.luizfelipe.cursomc.domain.enums;
 import lombok.*;
 
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public enum TipoCliente {
@@ -31,5 +30,21 @@ public enum TipoCliente {
 
         throw new IllegalArgumentException("Id inválido: " + cod);
 
+    }
+
+    public Integer getCod() {
+        return cod;
+    }
+
+    public void setCod(Integer cod) {
+        this.cod = cod;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }
