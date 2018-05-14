@@ -1,6 +1,7 @@
 package com.luizfelipe.cursomc.dto;
 
 import com.luizfelipe.cursomc.domain.Cliente;
+import com.luizfelipe.cursomc.services.validation.ClientUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@ClientUpdate
 public class ClienteDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
