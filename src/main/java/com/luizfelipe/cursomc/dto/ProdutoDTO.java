@@ -1,5 +1,7 @@
 package com.luizfelipe.cursomc.dto;
 
+import com.luizfelipe.cursomc.domain.Produto;
+
 import java.io.Serializable;
 
 public class ProdutoDTO implements Serializable {
@@ -11,6 +13,12 @@ public class ProdutoDTO implements Serializable {
     private Double preco;
 
     public ProdutoDTO() {
+    }
+
+    public ProdutoDTO(Produto obj) {
+        id = obj.getId();
+        nome = obj.getNome();
+        preco = obj.getPreco();
     }
 
     public Integer getId() {

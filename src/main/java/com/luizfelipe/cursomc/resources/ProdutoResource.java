@@ -4,11 +4,14 @@ import com.luizfelipe.cursomc.domain.Categoria;
 import com.luizfelipe.cursomc.domain.Produto;
 import com.luizfelipe.cursomc.dto.CategoriaDTO;
 import com.luizfelipe.cursomc.dto.ProdutoDTO;
+import com.luizfelipe.cursomc.resources.utils.URL;
 import com.luizfelipe.cursomc.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/produtos")
@@ -35,8 +38,10 @@ public class ProdutoResource {
             @RequestParam(value = "direction", defaultValue = "ASC") String direction)
     {
 
-        Page<Produto> produtos = produtosService.search(page, linesPerPage, orderBy, direction);
-        Page<CategoriaDTO> listDTO = categorias.map(obj -> new CategoriaDTO(obj));
+        String nomeDecoded = URL.decodeParam(nome);
+        List<Integer> ids = URL.decodeIntList(categorias);
+        Page<Produto> produtos = produtosService.search(nomeDecoded, ids, page, linesPerPage, orderBy, direction);
+        Page<ProdutoDTO> listDTO = produtos.map(obj -> new ProdutoDTO(obj));
         return ResponseEntity.ok().body(listDTO);
     }
 }
